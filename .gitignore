@@ -106,3 +106,7 @@ venv.bak/
 # venv
 bin/
 pyvenv.cfg
+pip-selfcheck.json
+
+# VS Code
+.vscode/
