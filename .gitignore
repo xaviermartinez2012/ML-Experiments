@@ -111,3 +111,6 @@ pip-selfcheck.json
 
 # VS Code
 .vscode/
+
+# development
+datasets/
