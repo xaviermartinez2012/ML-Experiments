@@ -105,6 +105,7 @@ venv.bak/
 
 # venv
 bin/
+man/
 pyvenv.cfg
 pip-selfcheck.json
 
