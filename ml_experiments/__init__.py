@@ -54,6 +54,7 @@ def env_sanity_check():
 
     environment_variables = os.environ.keys()
     required_variables = ["VIRTUAL_ENV", "KAGGLE_USERNAME", "KAGGLE_KEY"]
-    assert all([
+    requirements = [
         variable in environment_variables for variable in required_variables
-    ]), "virtual environment is not properly configured"
+    ]
+    assert all(requirements), "virtual environment is not properly configured"
