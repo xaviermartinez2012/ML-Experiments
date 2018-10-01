@@ -38,12 +38,15 @@ class experiment:
 
         return pandas.read_csv(self.dataset_file)
 
-    def describe_dataframe(self):
+    def describe_dataset(self):
         """Describe the DataFrame"""
 
-        print(f"{'File':<11}: {self.dataset_target}")
-        print(f"{'Attributes':<11}: {', '.join(list(self.dataframe))}")
-        print("{0:<11}: {1} x {2}".format('Shape', *self.dataframe.shape))
+        format_str = "{:<11}: {}"
+        print(format_str.format('Dataset', self.dataset))
+        print(format_str.format('File', self.dataset_target))
+        print(format_str.format('Attributes', ', '.join(list(self.dataframe))))
+        dataset_shape = "{} x {}".format(*self.dataframe.shape)
+        print(format_str.format('Shape', dataset_shape))
 
 
 def env_sanity_check():

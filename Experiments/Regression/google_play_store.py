@@ -20,7 +20,7 @@ def main():
     # initialize experiment
     ml_experiment = experiment(kaggle_api, dataset, dataset_target,
                                download_directory)
-    ml_experiment.describe_dataframe()
+    ml_experiment.describe_dataset()
 
 
 if __name__ == '__main__':
