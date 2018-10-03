@@ -19,10 +19,11 @@ class experiment:
         self.kaggle_api = kaggle_api
         self.dataset = dataset
         self.dataset_target = dataset_target
-        self.download_directory = os.path.join(os.environ['VIRTUAL_ENV'],
+        self.download_directory = os.path.join(os.environ["VIRTUAL_ENV"],
                                                download_directory)
-        self.dataset_file = os.path.join(download_directory, dataset_target)
-        self.dataframe = self.initialize_dataframe()
+        self.dataset_file = os.path.join(self.download_directory,
+                                         dataset_target)
+        self.df = self.initialize_dataframe()
 
     def initialize_dataframe(self):
         """Initialize a DataFrame from a Kaggle dataset"""
@@ -44,9 +45,10 @@ class experiment:
         format_str = "{:<11}: {}"
         print(format_str.format('Dataset', self.dataset))
         print(format_str.format('File', self.dataset_target))
-        print(format_str.format('Attributes', ', '.join(list(self.dataframe))))
-        dataset_shape = "{} x {}".format(*self.dataframe.shape)
+        print(format_str.format('Attributes', ', '.join(list(self.df))))
+        dataset_shape = "{} x {}".format(*self.df.shape)
         print(format_str.format('Shape', dataset_shape))
+        print(self.df.sample(5))
 
 
 def env_sanity_check():
