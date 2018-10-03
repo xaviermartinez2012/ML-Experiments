@@ -39,6 +39,39 @@ class experiment:
 
         return pandas.read_csv(self.dataset_file)
 
+    def reassign_attribute(self, attribute, series):
+        """Reassigns column in dataset using best practices
+
+        Arguments:
+            attribute {str} -- The attribute to reassign
+            series {Series} -- The Series to use for reassignment
+        """
+
+        self.df.loc[:, attribute] = series.values
+
+    def identitify_non_numeric(self, attribute):
+        """Identifies non-numeric values in given an attribute in the dataset
+
+        Arguments:
+            attribute {str} -- The attribute to investigate
+
+        Returns:
+            DataFrame -- Non-numeric DataFrame
+        """
+
+        not_numeric = self.df[~self.df[attribute].str.isnumeric()]
+        return not_numeric
+
+    def convert_to_numeric(self, attribute):
+        """Convert data associated to attribute to numeric
+
+        Arguments:
+            attribute {str} -- The attribute to target
+        """
+
+        self.reassign_attribute(attribute,
+                                pandas.to_numeric(self.df[attribute]))
+
     def describe_dataset(self):
         """Describe the DataFrame"""
 
@@ -49,6 +82,22 @@ class experiment:
         dataset_shape = "{} x {}".format(*self.df.shape)
         print(format_str.format('Shape', dataset_shape))
         print(self.df.sample(5))
+
+    def describe_non_numeric(self, attribute):
+        """Describes the non-numeric data in the dataset given an attribute
+
+        Arguments:
+            attribute {str} -- The attribute to investigate
+        """
+
+        format_str = "{:<20}: {}"
+        not_numeric = self.identitify_non_numeric(attribute)
+        unique_not_numeric = not_numeric.unique()
+        print(format_str.format('Total non-numeric', not_numeric.sum()))
+        print(
+            format_str.format('Total unique non-numeric',
+                              unique_not_numeric.sum()))
+        print(f"{'Unique non-numeric':<20}:\n{unique_not_numeric}")
 
 
 def env_sanity_check():
