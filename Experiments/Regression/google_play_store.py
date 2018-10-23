@@ -9,6 +9,7 @@ import re
 import numpy as np
 from kaggle import api as kaggle_api
 from ml_experiments import experiment, env_sanity_check
+from pandas import to_datetime
 
 
 def main():
@@ -56,6 +57,10 @@ def main():
     secondary_genre = ml.df.Genres.apply(lambda x: x.split(";")[-1]).values
     ml.df["SecondaryGenre"] = secondary_genre
     ml.df.drop(columns=["Genres"], inplace=True)
+    ## - Last Updated
+    ml.reassign_attribute("Last Updated", to_datetime(ml.df["Last Updated"]))
+    ## - Drop Current Ver, Android Ver
+    ml.df.drop(columns=["Current Ver", "Android Ver"], inplace=True)
     for attribute in numeric_conversions:
         ml.convert_to_numeric(attribute)
     ## drop NaNs
